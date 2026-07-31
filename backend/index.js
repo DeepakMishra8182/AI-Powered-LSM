@@ -1,5 +1,6 @@
-import express from "express"
 import dotenv from "dotenv"
+dotenv.config()
+import express from "express"
 import connectDb from "./configs/db.js"
 import authRouter from "./routes/authRoute.js"
 import cookieParser from "cookie-parser"
@@ -9,7 +10,7 @@ import courseRouter from "./routes/courseRoute.js"
 import paymentRouter from "./routes/paymentRoute.js"
 import aiRouter from "./routes/aiRoute.js"
 import reviewRouter from "./routes/reviewRoute.js"
-dotenv.config()
+
 
 let port = process.env.PORT
 let app = express()

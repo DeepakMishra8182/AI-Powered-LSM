@@ -17,33 +17,81 @@ function EditProfile() {
      let [loading,setLoading] = useState(false)
      let navigate = useNavigate()
 
-      const formData = new FormData()
-      formData.append("name",name)
-      formData.append("description",description)
-      formData.append("photoUrl",photoUrl)
+      // const formData = new FormData()
+      // formData.append("name",name)
+      // formData.append("description",description)
+      // formData.append("photoUrl",photoUrl)
 
 
 
-     const updateProfile = async () => {
-      setLoading(true)
-      try {
-        const result = await axios.post(serverUrl + "/api/user/updateprofile" ,formData , {withCredentials:true} )
-        console.log(result.data)
-        dispatch(setUserData(result.data))
-        navigate("/")
-        setLoading(false)
+    //  const updateProfile = async () => {
+    //   setLoading(true)
+    //   try {
+    //     const result = await axios.post(serverUrl + "/api/user/updateprofile" ,formData , {withCredentials:true} )
+    //     console.log(result.data)
+    //     dispatch(setUserData(result.data))
+    //     navigate("/")
+    //     setLoading(false)
       
-        toast.success("Profile Update Successfully")
+    //     toast.success("Profile Update Successfully")
         
 
         
-      } catch (error) {
-        console.log(error)
-        toast.error("Profile Update Error")
-        setLoading(false)
-      }
+    //   } catch (error) {
+    //     console.log(error)
+    //     toast.error("Profile Update Error")
+    //     setLoading(false)
+    //   }
       
-     }
+    //  }
+
+
+   const updateProfile = async () => {
+
+    setLoading(true);
+
+    try {
+
+        const formData = new FormData();
+
+        formData.append("name", name);
+        formData.append("description", description);
+
+        if (photoUrl) {
+            formData.append("photoUrl", photoUrl);
+        }
+
+        const result = await axios.post(
+            serverUrl + "/api/user/updateprofile",
+            formData,
+            {
+                withCredentials: true
+            }
+        );
+
+        console.log(result.data);
+
+        dispatch(setUserData(result.data));
+
+        toast.success("Profile Updated Successfully");
+
+        navigate("/");
+
+    } catch (error) {
+
+        console.log(error);
+
+        toast.error("Profile Update Error");
+
+    } finally {
+
+        setLoading(false);
+
+    }
+
+}
+
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 py-10">
       <div className="bg-white rounded-2xl shadow-lg p-8 max-w-xl w-full relative">
